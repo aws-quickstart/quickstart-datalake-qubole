@@ -289,7 +289,7 @@
         "DatasetS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
             "ConstraintDescription": "Dataset key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Default": "quickstart-datalake-qubole/retail/v1",
+            "Default": "quickstart-datalake-qubole/v1",
             "Description": "S3 key prefix for the Quick Start dataset. Dataset key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended. Required only if Create Demonstration is set to \"yes\"",
             "Type": "String"
         },

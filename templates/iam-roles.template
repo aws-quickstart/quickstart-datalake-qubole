@@ -156,6 +156,9 @@
         },
         "QuboleInstanceProfile": {
             "Properties": {
+                "InstanceProfileName": {
+                    "Ref": "QuboleRole"
+                },
                 "Roles": [
                     {
                         "Ref": "QuboleRole"
