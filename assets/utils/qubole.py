@@ -114,7 +114,7 @@ def _import_notebook(name, location, url, note_type, cluster_id):
 def import_dashboard_notebook(config, spark_cluster_id):
     return _import_notebook(
         name=config['spark_dashboard_notebook_name'],
-        location='Users',
+        location='Common',
         url=config['spark_dashboard_notebook_s3_url'],
         note_type='spark',
         cluster_id=spark_cluster_id
@@ -124,7 +124,7 @@ def import_dashboard_notebook(config, spark_cluster_id):
 def import_spark_notebook(config, spark_cluster_id):
     return _import_notebook(
         name=config['spark_notebook_name'],
-        location='Users',
+        location='Common',
         url=config['spark_notebook_s3_url'],
         note_type='spark',
         cluster_id=spark_cluster_id
