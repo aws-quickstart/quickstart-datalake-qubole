@@ -911,7 +911,7 @@
             "Value": {
                 "Fn::GetAtt": [
                     "DataLakeStack",
-                    "Outputs.RedshiftJdbcUrl"
+                    "Outputs.RedshiftJDBCEndpoint"
                 ]
             }
         },
