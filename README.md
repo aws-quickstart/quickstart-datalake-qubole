@@ -6,7 +6,7 @@ This Quick Start configures a production-ready Qubole Data Service (QDS) environ
 
 QDS is a cloud-native, autonomous data platform for analyzing and processing big data. Qubole self-manages and constantly analyzes and learns about the platform’s usage through a combination of heuristics and machine learning, and provides insights and recommendations to optimize reliability, performance, and costs. Qubole works in concert with AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Elastic Compute Cloud (Amazon EC2), and Amazon Redshift.
 
-The Quick Start offers two deployment options:
+The deployment and configuration tasks are automated by AWS CloudFormation templates that you can customize during launch. The Quick Start offers two deployment options:
 
 - Deploying the AWS CloudFormation template into a new virtual private cloud (VPC) on AWS
 - Deploying the AWS CloudFormation template into an existing VPC on AWS
