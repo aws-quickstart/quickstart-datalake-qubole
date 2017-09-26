@@ -90,7 +90,7 @@ def _create_cluster(config, make_cluster_info_fun):
     cluster_info = make_cluster_info_fun(config)
     cluster_info_dict = cluster_info.minimal_payload()
     response = Cluster.create(cluster_info_dict, version='v1.3')
-    return response['id']
+    return response
 
 
 def create_hadoop_cluster(config):

@@ -88,10 +88,20 @@ function registerEvents() {
         var btn = $(this);
         btn.removeClass('btn-primary btn-danger').addClass('btn-primary');
         btn.button('loading');
-        $.post('/create_clusters_and_notebooks', function () {
-            btn.text('Clusters were created and are starting!');
-            btn.removeClass('btn-primary btn-danger').addClass('btn-success');
-        }).fail(function() {
+        $.post('/create_clusters_and_notebooks', function (response) {
+            if(response != null && response != undefined &&
+                response.error != null) {
+                $('#createClustersAndNotebooksErrorMessage').html(response.error.error_message)
+                $('#createClustersAndNotebooksAlert').show();
+                btn.button('reset');
+                btn.removeClass('btn-primary btn-danger').addClass('btn-danger');
+            }
+            else {
+                btn.text('Clusters were created and are starting!');
+                btn.removeClass('btn-primary btn-danger').addClass('btn-success');
+            }
+        }).fail(function(response) {
+            console.log(response)
             btn.button('reset');
             btn.removeClass('btn-primary btn-danger').addClass('btn-danger');
         });
