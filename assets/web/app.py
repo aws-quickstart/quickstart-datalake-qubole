@@ -6,6 +6,7 @@ import functools
 import logging
 
 import sys
+import qds_sdk
 
 from flask import (
     Flask,
@@ -20,6 +21,7 @@ from flask import redirect
 from flask import url_for
 from qds_sdk.cluster import Cluster
 from qds_sdk.qubole import Qubole
+from qds_sdk.exception import ResourceNotFound
 
 from qubole_root import PROJECT_DIR
 from utils.config import read_config
@@ -110,20 +112,88 @@ def wizard():
 @app.route('/create_clusters_and_notebooks', methods=['POST'])
 @login_required
 def create_clusters_and_notebooks():
-    Cluster.delete(config['hadoop_cluster_name'])
-    hadoop_cluster_id = create_hadoop_cluster(config)
-    Cluster.start(config['hadoop_cluster_name'])
-    Cluster.delete(config['spark_cluster_name'])
-    spark_cluster_id = create_spark_cluster(config)
-    Cluster.start(config['spark_cluster_name'])
+    logger = app.logger
+
+    try:
+        Cluster.delete(config['hadoop_cluster_name'])
+    except ResourceNotFound as e:
+        logger.error("Error when removing Hadoop cluster configuration. {}".format(e))
+        # Cluster might be deleted so it should be possible to create it again.
+    except qds_sdk.exception.Error as e:
+        json_response = e.request.json()
+        logger.error("Error when removing Hadoop cluster configuration. {}".format(json_response))
+        return jsonify(json_response)
+
+    try:
+        hadoop_cluster_response = create_hadoop_cluster(config)
+        logger.info("Create Hadoop cluster response {}".format(hadoop_cluster_response))
+        hadoop_cluster_id = hadoop_cluster_response['id']
+    except qds_sdk.exception.Error as e:
+        json_response = e.request.json()
+        logger.error("Error when creating Hadoop cluster configuration. {}".format(json_response))
+        return jsonify(json_response)
+
+    try:
+        Cluster.start(config['hadoop_cluster_name'])
+    except qds_sdk.exception.Error as e:
+        json_response = e.request.json()
+        logger.error("Error when launching Hadoop cluster configuration. {}".format(json_response))
+        return jsonify(json_response)
+
+    try:
+        Cluster.delete(config['spark_cluster_name'])
+    except ResourceNotFound as e:
+        logger.error("Error when removing Spark cluster configuration. {}".format(e))
+        # Cluster might be deleted so it should be possible to create it again.
+    except qds_sdk.exception.Error as e:
+        json_response = e.request.json()
+        logger.error("Error when removing Spark cluster configuration. {}".format(json_response))
+        return jsonify(json_response)
+
+    try:
+        spark_cluster_response = create_spark_cluster(config)
+        logger.info("Create Spark cluster response {}".format(spark_cluster_response))
+        spark_cluster_id = spark_cluster_response['id']
+    except qds_sdk.exception.Error as e:
+        json_response = e.request.json()
+        logger.error("Error when creating Spark cluster configuration. {}".format(json_response))
+        return jsonify(json_response)
+
+    try:
+        Cluster.start(config['spark_cluster_name'])
+    except qds_sdk.exception.Error as e:
+        json_response = e.request.json()
+        logger.error("Error when launching Hadoop cluster configuration. {}".format(json_response))
+        return jsonify(json_response)
+
     spark_notebook = import_spark_notebook(config, spark_cluster_id=spark_cluster_id)
+    if not spark_notebook['success']:
+        logger.error('Failed to import Spark Notebook. {}'.format(spark_notebook))
+        resp = {
+            'error': {
+                'error_message': "Notebook {} {}".format(config['spark_notebook_name'], spark_notebook['message'])
+            }
+        }
+        return jsonify(resp)
+
     dashboard_notebook = import_dashboard_notebook(config, spark_cluster_id=spark_cluster_id)
-    app.config.update({
+    if not dashboard_notebook['success']:
+        logger.error('Failed to import Dashboard Notebook. {}'.format(dashboard_notebook))
+        resp = {
+            'error': {
+                'error_message': "Notebook {} {}".format(config['spark_dashboard_notebook_name'], dashboard_notebook['message'])
+            }
+        }
+        return jsonify(resp)
+
+    new_config = {
         'spark_cluster_id': spark_cluster_id,
         'hadoop_cluster_id': hadoop_cluster_id,
         'spark_notebook_id': spark_notebook['id'],
         'dashboard_notebook_id': dashboard_notebook['id']
-    })
+    }
+    logger.info('Updating app.config to {}'.format(new_config))
+    app.config.update(new_config)
     return Response()
 
 
