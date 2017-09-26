@@ -1,5 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Creates IAM roles.  **WARNING** This template creates an Amazon RDS instance of the size and instance type that you specify. You will be billed for the AWS resources used if you create a stack from this template.(qs-1nncltg5i)",
     "Resources": {
         "InstanceProfile": {
             "Condition": "CreateDemoResources",

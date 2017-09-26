@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Data Lake Qubole is a QuickStart that provides a Data Lake architecture, Redshift cluster, Elasticsearch domain, Qubole walk-through web application running on AWS EC2 instance, in the same VPC through Cloudformation templates that provision and configure the required resources, including related QuickStarts. This template provisions all of the resources that are specific to the Quick Start. **WARNING** You will be billed for the AWS resources used if you create a stack from this template.",
+    "Description": "Data Lake Qubole is a QuickStart that provides a Data Lake architecture, Redshift cluster, Elasticsearch domain, Qubole walk-through web application running on AWS EC2 instance, in the same VPC through Cloudformation templates that provision and configure the required resources, including related QuickStarts. This template provisions all of the resources that are specific to the Quick Start. **WARNING** You will be billed for the AWS resources used if you create a stack from this template.(qs-1nncltg6d)",
     "Metadata": {
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [

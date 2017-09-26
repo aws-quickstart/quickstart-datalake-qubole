@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Qubole bastion",
+    "Description": "Qubole bastion.(qs-1nncltg5t)",
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
