@@ -560,7 +560,7 @@
         "RedshiftPassword": {
             "AllowedPattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9!#$%&()*+,.:;<=>?\\[\\]^_`{|}~-]*$",
             "ConstraintDescription": "Password must contain 8 to 64 printable ASCII characters excluding: /, \", \\', \\ and @. It must contain 1 uppercase letter, 1 lowercase letter, and 1 number.",
-            "Description": "The password that is associated with the master user account for Redshift cluster that is being created. Password must contain 8 to 64 printable ASCII characters excluding: /, \", \\', \\ and @. It must contain 1 uppercase letter, 1 lowercase letter, and 1 number. Required only if Enable Redshift is set to \"yes\"",
+            "Description": "The password that is associated with the master user account for the Amazon Redshift cluster. If you chose \"Enable Redshift\" = \"no\", Redshift will not be launched and this password will not be used, however you must still enter a valid password value. The password must contain 8-64 printable ASCII characters, excluding: /, \", \\', \\ and @. It must contain one uppercase letter, one lowercase letter, and one number.",
             "MaxLength": "64",
             "MinLength": "8",
             "NoEcho": "true",
