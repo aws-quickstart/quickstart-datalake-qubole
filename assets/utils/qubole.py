@@ -36,7 +36,6 @@ def _create_base_cluster_info(label, config):
         aws_availability_zone='Any',
         vpc_id=config['cluster_vpc_id'],
         subnet_id=config['cluster_subnet_id'],
-        bastion_node_public_dns=config['bastion_node_public_dns'],
         role_instance_profile=None
     )
     cluster_info.set_spot_instance_settings(
