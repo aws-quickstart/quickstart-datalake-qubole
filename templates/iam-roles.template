@@ -212,6 +212,12 @@
           "Arn"
         ]
       }
+    },
+    "InstanceProfileName": {
+      "Description": "Name of InstanceProfile",
+      "Value": {
+          "Ref": "QuboleInstanceProfile"
+      }
     }
   }
 }
