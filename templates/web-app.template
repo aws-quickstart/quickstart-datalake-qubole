@@ -31,11 +31,6 @@
             "Description": "The name of the instance profile to create.",
             "Type": "String"
         },
-        "KeyName": {
-            "ConstraintDescription": "Can contain only ASCII characters.",
-            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance.",
-            "Type": "AWS::EC2::KeyPair::KeyName"
-        },
         "PublicSubnet1ID": {
             "Description": "ID of the public subnet 1 that you want to provision the elastic load balancer into (e.g., subnet-a0246dcd).",
             "Type": "AWS::EC2::Subnet::Id"
@@ -96,10 +91,6 @@
         "SparkSlaveInstanceType": {
             "Description": "The EC2 instance type for Spark slave node.",
             "Default": "m3.2xlarge",
-            "Type": "String"
-        },
-        "RemoteAccessCIDR": {
-            "Description": "CIDR block for the VPC",
             "Type": "String"
         },
         "VpcId": {
@@ -188,14 +179,6 @@
             "Properties": {
                 "GroupDescription": "Enable SSH access from Bastion via port 22, and from ELB via port range 1024-65535",
                 "SecurityGroupIngress": [
-                    {
-                        "CidrIp": {
-                            "Ref": "RemoteAccessCIDR"
-                        },
-                        "FromPort": "22",
-                        "IpProtocol": "tcp",
-                        "ToPort": "22"
-                    },
                     {
                         "CidrIp": "0.0.0.0/0",
                         "FromPort": "80",
@@ -384,9 +367,6 @@
                 "InstanceType": {
                     "Ref": "WizardInstanceType"
                 },
-                "KeyName": {
-                    "Ref": "KeyName"
-                },
                 "NetworkInterfaces": [
                     {
                         "AssociatePublicIpAddress": true,
@@ -429,9 +409,16 @@
     "Outputs": {
         "URL": {
             "Value": {
-                "Fn::GetAtt": [
-                    "WebServerEC2Instance",
-                    "PublicDnsName"
+                "Fn::Join": [
+                    "//",
+                    ["http:",
+                        {
+                            "Fn::GetAtt": [
+                                "WebServerEC2Instance",
+                                "PublicDnsName"
+                            ]
+                        }
+                    ]
                 ]
             },
             "Description": "Public DNS Name of App Server"
