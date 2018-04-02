@@ -134,7 +134,7 @@
                 "yes",
                 "no"
             ],
-            "Default": "no",
+            "Default": "yes",
             "Description": "Create EC2 instance with Qubole walk-through guide and load sample data into RDS",
             "Type": "String"
         },

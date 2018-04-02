@@ -202,7 +202,7 @@
                             },
                             "2_import_database": {
                                 "command": {
-                                    "Fn::Sub": "mysql -u${RDSUsername} -p${RDSPassword} -h ${RDSHostname} -P ${RDSPort} -D ${RDSDatabaseName} < /home/ec2-user/qusql_2017-07-20.sql"
+                                    "Fn::Sub": "mysql -u${RDSUsername} -p'${RDSPassword}' -h ${RDSHostname} -P ${RDSPort} -D ${RDSDatabaseName} < /home/ec2-user/qusql_2017-07-20.sql"
                                 }
                             },
                             "3_run_webserver": {
@@ -300,7 +300,7 @@
                                                 "Fn::Sub": "rds_port=${RDSPort}"
                                             },
                                             "[hadoop]",
-                                            "hadoop_cluster_name=hadoop2",
+                                            "hadoop_cluster_name=hadoop2-quickstart",
                                             {
                                                 "Fn::Sub": "hadoop_master_instance_type=${HadoopMasterInstanceType}"
                                             },
@@ -311,7 +311,7 @@
                                                 "Fn::Sub": "hadoop_max_nodes_count=${HadoopMaxNodesCount}"
                                             },
                                             "[spark]",
-                                            "spark_cluster_name=spark",
+                                            "spark_cluster_name=spark-quickstart",
                                             "spark_notebook_name=spark_quickstart",
                                             "spark_dashboard_notebook_name=dashboard_quickstart",
                                             {
