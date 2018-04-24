@@ -126,11 +126,11 @@ def import_spark_notebook(config, spark_cluster_id):
     )
 
 
-def import_data_table(data_store_id, source_table_name, database_name):
+def import_data_table(data_store_id, source_table_name, database_name,cluster_label):
     return DbImportCommand.create(
         mode=1,
 	use_customer_cluster=True,
-        customer_cluster_label='hadoop2',
+        customer_cluster_label=cluster_label,
         dbtap_id=data_store_id,
         db_table=source_table_name,
         hive_table='{}.{}'.format(database_name, source_table_name),

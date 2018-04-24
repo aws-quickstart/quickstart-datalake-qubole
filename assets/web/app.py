@@ -203,7 +203,7 @@ def import_tables():
     data_store_id = find_data_store_id(config['qubole_data_store_name'])
     tables_to_import = ['customers', 'departments', 'order_items', 'orders', 'products']
     for table_name in tables_to_import:
-        import_data_table(data_store_id, table_name, config['qubole_database_name'])
+        import_data_table(data_store_id, table_name, config['qubole_database_name'],config['hadoop_cluster_name'])
     return Response()
 
 
