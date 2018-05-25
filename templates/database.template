@@ -2,16 +2,17 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "Creates a MySQL RDS instance within a VPC.  **WARNING** This template creates an Amazon RDS instance of the size and instance type that you specify. You will be billed for the AWS resources used if you create a stack from this template.(qs-1nncltg5d)",
     "Parameters": {
-        "PrivateSubnetID1": {
-            "Description": "ID of the private subnet 1 that you want to provision the RDS instance into (e.g., subnet-a0246dcd).",
+        "PublicSubnet1ID": {
+            "Description": "ID of the public subnet 1 that you want to provision the RDS instance into (e.g., subnet-a0246dcd).",
             "Type": "AWS::EC2::Subnet::Id"
         },
-        "PrivateSubnetID2": {
-            "Description": "ID of the private subnet 2 that you want to provision the RDS instance into (e.g., subnet-e3246d8e).",
+        "PublicSubnet2ID": {
+            "Description": "ID of the public subnet 2 that you want to provision the RDS instance into (e.g., subnet-a0246dcd).",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "RDSDatabaseName": {
             "Description": "The name of the database created when the RDS instance is provisioned.",
+            "Default": "qubole",
             "Type": "String"
         },
         "RDSInstanceType": {
@@ -22,6 +23,7 @@
                 "db.t2.large"
             ],
             "Description": "The type of the RDS instance that is being created.",
+            "Default": "db.t2.small",
             "Type": "String"
         },
         "RDSPassword": {
@@ -31,10 +33,12 @@
         },
         "RDSPort": {
             "Description": "The port that the RDS instance will listen on.",
+            "Default": "3306",
             "Type": "Number"
         },
         "RDSUsername": {
             "Description": "The user name that is associated with the master user account for the RDS that is being created. User name parameter must be lowercase, begin with a letter, contain only alphanumeric characters or underscores, and be less than 128 characters.",
+            "Default": "rdsuser",
             "Type": "String"
         },
         "VPCCIDR": {
@@ -50,6 +54,7 @@
         "RDSInstance": {
             "Properties": {
                 "AllocatedStorage": "10",
+                "MultiAZ": "false",
                 "DBInstanceClass": {
                     "Ref": "RDSInstanceType"
                 },
@@ -112,10 +117,10 @@
                 "DBSubnetGroupDescription": "RDS subnet group",
                 "SubnetIds": [
                     {
-                        "Ref": "PrivateSubnetID1"
+                        "Ref": "PublicSubnet1ID"
                     },
                     {
-                        "Ref": "PrivateSubnetID2"
+                        "Ref": "PublicSubnet2ID"
                     }
                 ]
             },

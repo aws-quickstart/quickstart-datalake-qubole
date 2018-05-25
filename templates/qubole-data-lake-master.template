@@ -11,9 +11,7 @@
                     "Parameters": [
                         "QuboleApiToken",
                         "QuboleAWSAccountId",
-                        "QuboleExternalId",
-                        "QuboleBastionIngressAccessCIDR",
-                        "QuboleBastionInstanceType"
+                        "QuboleExternalId"
                     ]
                 },
                 {
@@ -39,65 +37,11 @@
                 },
                 {
                     "Label": {
-                        "default": "Hadoop Configuration"
-                    },
-                    "Parameters": [
-                        "HadoopMasterInstanceType",
-                        "HadoopSlaveInstanceType",
-                        "HadoopMaxNodesCount"
-                    ]
-                },
-                {
-                    "Label": {
-                        "default": "Spark Configuration"
-                    },
-                    "Parameters": [
-                        "SparkMasterInstanceType",
-                        "SparkSlaveInstanceType",
-                        "SparkMaxNodesCount"
-                    ]
-                },
-                {
-                    "Label": {
                         "default": "AWS Quick Start Configuration"
                     },
                     "Parameters": [
                         "QSS3BucketName",
-                        "QSS3KeyPrefix",
-                        "KeyPairName"
-                    ]
-                },
-                {
-                    "Label": {
-                        "default": "Data Lake Elasticsearch Configuration"
-                    },
-                    "Parameters": [
-                        "RemoteAccessCIDR",
-                        "ElasticsearchNodeType",
-                        "ElasticsearchNodeCount"
-                    ]
-                },
-                {
-                    "Label": {
-                        "default": "Data Lake Redshift Configuration"
-                    },
-                    "Parameters": [
-                        "EnableRedshift",
-                        "RedshiftUsername",
-                        "RedshiftPassword",
-                        "RedshiftNumberOfNodes",
-                        "RedshiftNodeType",
-                        "RedshiftDatabaseName",
-                        "RedshiftDatabasePort"
-                    ]
-                },
-                {
-                    "Label": {
-                        "default": "Data Lake Kinesis Configuration"
-                    },
-                    "Parameters": [
-                        "KinesisDataStreamName",
-                        "KinesisDataStreamS3Prefix"
+                        "QSS3KeyPrefix"
                     ]
                 },
                 {
@@ -106,11 +50,8 @@
                     },
                     "Parameters": [
                         "CreateDemonstration",
-                        "WizardInstanceType",
                         "WizardUsername",
-                        "WizardPassword",
-                        "DatasetS3BucketName",
-                        "DatasetS3KeyPrefix"
+                        "WizardPassword"
                     ]
                 }
             ],
@@ -120,39 +61,6 @@
                 },
                 "CreateDemonstration": {
                     "default": "Create Demonstration"
-                },
-                "DatasetS3BucketName": {
-                    "default": "Dataset S3 Bucket Name"
-                },
-                "DatasetS3KeyPrefix": {
-                    "default": "Dataset S3 Key Prefix"
-                },
-                "ElasticsearchNodeCount": {
-                    "default": "Elasticsearch Node Count"
-                },
-                "ElasticsearchNodeType": {
-                    "default": "Elasticsearch Node Type"
-                },
-                "EnableRedshift": {
-                    "default": "Enable Redshift"
-                },
-                "HadoopMasterInstanceType": {
-                    "default": "Hadoop master instance type"
-                },
-                "HadoopMaxNodesCount": {
-                    "default": "Hadoop max nodes"
-                },
-                "HadoopSlaveInstanceType": {
-                    "default": "Hadoop slave instance type"
-                },
-                "KeyPairName": {
-                    "default": "Key Pair Name"
-                },
-                "KinesisDataStreamName": {
-                    "default": "Kinesis Data Stream Name"
-                },
-                "KinesisDataStreamS3Prefix": {
-                    "default": "Kinesis Data Stream S3 Prefix"
                 },
                 "QSS3BucketName": {
                     "default": "Quick Start S3 Bucket Name"
@@ -165,12 +73,6 @@
                 },
                 "QuboleApiToken": {
                     "default": "Qubole API token"
-                },
-                "QuboleBastionIngressAccessCIDR": {
-                    "default": "Qubole bastion ingress access CIDR"
-                },
-                "QuboleBastionInstanceType": {
-                    "default": "Qubole bastion instance type"
                 },
                 "QuboleExternalId": {
                     "default": "Qubole External ID"
@@ -190,41 +92,8 @@
                 "RDSUsername": {
                     "default": "RDS User Name"
                 },
-                "RedshiftDatabaseName": {
-                    "default": "Redshift Database Name"
-                },
-                "RedshiftDatabasePort": {
-                    "default": "Redshift Database Port"
-                },
-                "RedshiftNodeType": {
-                    "default": "Redshift Node Type"
-                },
-                "RedshiftNumberOfNodes": {
-                    "default": "Redshift Number Of Nodes"
-                },
-                "RedshiftPassword": {
-                    "default": "Redshift Password"
-                },
-                "RedshiftUsername": {
-                    "default": "Redshift Username"
-                },
-                "RemoteAccessCIDR": {
-                    "default": "Remote Access CIDR"
-                },
-                "SparkMasterInstanceType": {
-                    "default": "Spark master instance type"
-                },
-                "SparkMaxNodesCount": {
-                    "default": "Spark max nodes"
-                },
-                "SparkSlaveInstanceType": {
-                    "default": "Spark slave instance type"
-                },
                 "VPCDefinition": {
                     "default": "VPC Definition"
-                },
-                "WizardInstanceType": {
-                    "default": "Wizard Instance Type"
                 },
                 "WizardPassword": {
                     "default": "Wizard Password"
@@ -240,9 +109,7 @@
             "QuickstartDefault": {
                 "VPCCIDR": "10.0.0.0/16",
                 "PublicSubnet1CIDR": "10.0.128.0/20",
-                "PrivateSubnet1CIDR": "10.0.0.0/19",
                 "PublicSubnet2CIDR": "10.0.144.0/20",
-                "PrivateSubnet2CIDR": "10.0.32.0/19",
                 "NumberOfAZs": "2"
             }
         }
@@ -252,14 +119,6 @@
             "Fn::Equals": [
                 {
                     "Ref": "CreateDemonstration"
-                },
-                "yes"
-            ]
-        },
-        "CreateRedshift": {
-            "Fn::Equals": [
-                {
-                    "Ref": "EnableRedshift"
                 },
                 "yes"
             ]
@@ -277,109 +136,6 @@
             ],
             "Default": "no",
             "Description": "Create EC2 instance with Qubole walk-through guide and load sample data into RDS",
-            "Type": "String"
-        },
-        "DatasetS3BucketName": {
-            "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
-            "ConstraintDescription": "Dataset bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "aws-quickstart-datasets",
-            "Description": "Dataset bucket name for the Quick Start dataset. Dataset bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-). Required only if Create Demonstration is set to \"yes\"",
-            "Type": "String"
-        },
-        "DatasetS3KeyPrefix": {
-            "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
-            "ConstraintDescription": "Dataset key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Default": "quickstart-datalake-qubole/v1",
-            "Description": "S3 key prefix for the Quick Start dataset. Dataset key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended. Required only if Create Demonstration is set to \"yes\"",
-            "Type": "String"
-        },
-        "ElasticsearchNodeCount": {
-            "Default": "1",
-            "Description": "The number of nodes in the Elasticsearch cluster.",
-            "Type": "Number"
-        },
-        "ElasticsearchNodeType": {
-            "AllowedValues": [
-                "t2.small.elasticsearch",
-                "m4.large.elasticsearch",
-                "m4.xlarge.elasticsearch",
-                "c4.large.elasticsearch",
-                "c4.xlarge.elasticsearch",
-                "r4.large.elasticsearch",
-                "r4.xlarge.elasticsearch"
-            ],
-            "ConstraintDescription": "must be a valid Elasticsearch node type.",
-            "Default": "t2.small.elasticsearch",
-            "Description": "The node type to be provisioned for the Elasticsearch cluster.",
-            "Type": "String"
-        },
-        "EnableRedshift": {
-            "AllowedValues": [
-                "yes",
-                "no"
-            ],
-            "Default": "no",
-            "Description": "Redshift is provisioned if this option is set to \"yes\".",
-            "Type": "String"
-        },
-        "HadoopMasterInstanceType": {
-            "AllowedValues": [
-                "m1.large",
-                "m1.xlarge",
-                "m2.xlarge",
-                "m2.2xlarge",
-                "m2.4xlarge",
-                "m3.xlarge",
-                "m3.2xlarge",
-                "m4.large",
-                "m4.xlarge",
-                "m4.2xlarge",
-                "m4.4xlarge",
-                "m4.10xlarge",
-                "m4.16xlarge"
-            ],
-            "Default": "m3.xlarge",
-            "Description": "The EC2 instance type for Hadoop master node.",
-            "Type": "String"
-        },
-        "HadoopMaxNodesCount": {
-            "Default": "3",
-            "Description": "The maximum number of Hadoop nodes.",
-            "Type": "Number"
-        },
-        "HadoopSlaveInstanceType": {
-            "AllowedValues": [
-                "m1.large",
-                "m1.xlarge",
-                "m2.xlarge",
-                "m2.2xlarge",
-                "m2.4xlarge",
-                "m3.xlarge",
-                "m3.2xlarge",
-                "m4.large",
-                "m4.xlarge",
-                "m4.2xlarge",
-                "m4.4xlarge",
-                "m4.10xlarge",
-                "m4.16xlarge"
-            ],
-            "Default": "m3.xlarge",
-            "Description": "The EC2 instance type for Hadoop slave node.",
-            "Type": "String"
-        },
-        "KeyPairName": {
-            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance.",
-            "Type": "AWS::EC2::KeyPair::KeyName"
-        },
-        "KinesisDataStreamName": {
-            "Default": "streaming-submissions",
-            "Description": "Kinesis data stream name.",
-            "Type": "String"
-        },
-        "KinesisDataStreamS3Prefix": {
-            "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
-            "Default": "streaming-submissions",
-            "Description": "Kinesis data stream S3 prefix for your streaming data stored in Datalake submissions bucket.",
             "Type": "String"
         },
         "QSS3BucketName": {
@@ -406,33 +162,6 @@
             "Description": "Qubole account API token.",
             "MinLength": "8",
             "NoEcho": "true",
-            "Type": "String"
-        },
-        "QuboleBastionIngressAccessCIDR": {
-            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
-            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/x",
-            "Description": "CIDR block allowed to access Qubole bastion instance. You should follow instructions from http://docs.qubole.com/en/latest/user-guide/clusters/clusters-in-vpcs.html#creating-a-security-group-in-the-vpc to obtain Qubole tunnel server's IP address. Alternatively, set it to 0.0.0.0/0 to let anyone access Qubole Bastion. CIDR block parameter must be in the form x.x.x.x/x (e.g., 96.127.8.12/32).",
-            "Type": "String"
-        },
-        "QuboleBastionInstanceType": {
-            "AllowedValues": [
-                "t2.nano",
-                "t2.micro",
-                "t2.small",
-                "t2.medium",
-                "t2.large",
-                "m3.large",
-                "m3.xlarge",
-                "m3.2xlarge",
-                "m4.large",
-                "m4.xlarge",
-                "m4.2xlarge",
-                "m4.4xlarge",
-                "m4.10xlarge",
-                "m4.16xlarge"
-            ],
-            "Default": "m3.xlarge",
-            "Description": "The EC2 instance type for the Qubole Bastion server",
             "Type": "String"
         },
         "QuboleExternalId": {
@@ -480,130 +209,9 @@
             "MinLength": "1",
             "Type": "String"
         },
-        "RedshiftDatabaseName": {
-            "AllowedPattern": "([a-z]|[0-9])+",
-            "ConstraintDescription": "must contain a-z or 0-9 only.",
-            "Default": "quickstart",
-            "Description": "The name of the first database to be created when Redshift cluster is created.",
-            "Type": "String"
-        },
-        "RedshiftDatabasePort": {
-            "Default": "5439",
-            "Description": "The port that Redshift will listen on and that will be allowed through the Security Group.",
-            "Type": "String"
-        },
-        "RedshiftNodeType": {
-            "AllowedValues": [
-                "dw1.xlarge",
-                "dw1.8xlarge",
-                "dw2.large",
-                "dw2.8xlarge",
-                "dc1.large",
-                "dc1.8xlarge",
-                "ds1.xlarge",
-                "ds1.8xlarge",
-                "ds2.xlarge",
-                "ds2.8xlarge"
-            ],
-            "ConstraintDescription": "must be a valid Redshift node type.",
-            "Default": "dc1.large",
-            "Description": "The node type to be provisioned for Redshift cluster.",
-            "Type": "String"
-        },
-        "RedshiftNumberOfNodes": {
-            "Default": "1",
-            "Description": "The number of compute nodes in Redshift cluster.",
-            "Type": "Number"
-        },
-        "RedshiftPassword": {
-            "AllowedPattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9!#$%&()*+,.:;<=>?\\[\\]^_`{|}~-]*$",
-            "ConstraintDescription": "Password must contain 8 to 64 printable ASCII characters excluding: /, \", \\', \\ and @. It must contain 1 uppercase letter, 1 lowercase letter, and 1 number.",
-            "Description": "The password that is associated with the master user account for the Amazon Redshift cluster. If you chose \"Enable Redshift\" = \"no\", Redshift will not be launched and this password will not be used, however you must still enter a valid password value. The password must contain 8-64 printable ASCII characters, excluding: /, \", \\', \\ and @. It must contain one uppercase letter, one lowercase letter, and one number.",
-            "MaxLength": "64",
-            "MinLength": "8",
-            "NoEcho": "true",
-            "Type": "String"
-        },
-        "RedshiftUsername": {
-            "AllowedPattern": "^[a-z][a-z0-9_]*$",
-            "ConstraintDescription": "User name parameter must be lowercase, begin with a letter, contain only alphanumeric characters or underscores, and be less than 128 characters.",
-            "Default": "datalake",
-            "Description": "The user name that is associated with the master user account for Redshift cluster that is being created. User name parameter must be lowercase, begin with a letter, contain only alphanumeric characters or underscores, and be less than 128 characters.",
-            "MaxLength": "128",
-            "MinLength": "1",
-            "Type": "String"
-        },
-        "RemoteAccessCIDR": {
-            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
-            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/x",
-            "Description": "CIDR block allowed to access Elasticsearch and SSH into bastion instance. You can use http://checkip.amazonaws.com/ to check your IP address. CIDR block parameter must be in the form x.x.x.x/x (e.g., 96.127.8.12/32, YOUR_IP/32).",
-            "Type": "String"
-        },
-        "SparkMasterInstanceType": {
-            "AllowedValues": [
-                "m1.large",
-                "m1.xlarge",
-                "m2.xlarge",
-                "m2.2xlarge",
-                "m2.4xlarge",
-                "m3.xlarge",
-                "m3.2xlarge",
-                "m4.large",
-                "m4.xlarge",
-                "m4.2xlarge",
-                "m4.4xlarge",
-                "m4.10xlarge",
-                "m4.16xlarge"
-            ],
-            "Default": "m3.xlarge",
-            "Description": "The EC2 instance type for Spark master node.",
-            "Type": "String"
-        },
-        "SparkMaxNodesCount": {
-            "Default": "2",
-            "Description": "The maximum number of Spark nodes.",
-            "Type": "Number"
-        },
-        "SparkSlaveInstanceType": {
-            "AllowedValues": [
-                "m1.large",
-                "m1.xlarge",
-                "m2.xlarge",
-                "m2.2xlarge",
-                "m2.4xlarge",
-                "m3.xlarge",
-                "m3.2xlarge",
-                "m4.large",
-                "m4.xlarge",
-                "m4.2xlarge",
-                "m4.4xlarge",
-                "m4.10xlarge",
-                "m4.16xlarge"
-            ],
-            "Default": "m3.2xlarge",
-            "Description": "The EC2 instance type for Spark slave node.",
-            "Type": "String"
-        },
         "VPCDefinition": {
             "Default": "QuickstartDefault",
             "Description": "VPC Definition name from Map maintained in this Quick Start's master template. You can support multiple VPC Definitions by extending this Map and choosing the appropriate name. If you do not need to change the VPC Definition, simply choose the default.",
-            "Type": "String"
-        },
-        "WizardInstanceType": {
-            "AllowedValues": [
-                "t2.nano",
-                "t2.micro",
-                "t2.small",
-                "t2.medium",
-                "t2.large",
-                "m3.large",
-                "m3.xlarge",
-                "m3.2xlarge",
-                "m4.large"
-            ],
-            "ConstraintDescription": "must be a valid EC2 instance type.",
-            "Default": "t2.micro",
-            "Description": "The EC2 instance type for the Qubole Quick Start Walkthrough Web server.",
             "Type": "String"
         },
         "WizardPassword": {
@@ -626,124 +234,11 @@
         }
     },
     "Resources": {
-        "BastionStack": {
-            "Properties": {
-                "Parameters": {
-                    "EnableTCPForwarding": "true",
-                    "KeyPairName": {
-                        "Ref": "KeyPairName"
-                    },
-                    "PublicSubnet1ID": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.PublicSubnet1ID"
-                        ]
-                    },
-                    "PublicSubnet2ID": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.PublicSubnet2ID"
-                        ]
-                    },
-                    "QSS3BucketName": {
-                        "Ref": "QSS3BucketName"
-                    },
-                    "QSS3KeyPrefix": {
-                        "Fn::Sub": [
-                            "${Prefix}submodules/quickstart-linux-bastion/",
-                            {
-                                "Prefix": {
-                                    "Ref": "QSS3KeyPrefix"
-                                }
-                            }
-                        ]
-                    },
-                    "RemoteAccessCIDR": {
-                        "Ref": "RemoteAccessCIDR"
-                    },
-                    "VPCID": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.VPCID"
-                        ]
-                    }
-                },
-                "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-linux-bastion/templates/linux-bastion.template"
-                }
-            },
-            "Type": "AWS::CloudFormation::Stack"
-        },
         "QuboleDataLakeStack": {
             "Properties": {
                 "Parameters": {
-                    "AvailabilityZones": {
-                        "Fn::Join": [
-                            ",",
-                            {
-                                "Ref": "AvailabilityZones"
-                            }
-                        ]
-                    },
                     "CreateDemonstration": {
                         "Ref": "CreateDemonstration"
-                    },
-                    "DatasetS3BucketName": {
-                        "Ref": "DatasetS3BucketName"
-                    },
-                    "DatasetS3KeyPrefix": {
-                        "Ref": "DatasetS3KeyPrefix"
-                    },
-                    "ElasticsearchNodeCount": {
-                        "Ref": "ElasticsearchNodeCount"
-                    },
-                    "ElasticsearchNodeType": {
-                        "Ref": "ElasticsearchNodeType"
-                    },
-                    "EnableRedshift": {
-                        "Ref": "EnableRedshift"
-                    },
-                    "HadoopMasterInstanceType": {
-                        "Ref": "HadoopMasterInstanceType"
-                    },
-                    "HadoopMaxNodesCount": {
-                        "Ref": "HadoopMaxNodesCount"
-                    },
-                    "HadoopSlaveInstanceType": {
-                        "Ref": "HadoopSlaveInstanceType"
-                    },
-                    "KeyPairName": {
-                        "Ref": "KeyPairName"
-                    },
-                    "KinesisDataStreamName": {
-                        "Ref": "KinesisDataStreamName"
-                    },
-                    "KinesisDataStreamS3Prefix": {
-                        "Ref": "KinesisDataStreamS3Prefix"
-                    },
-                    "NAT1ElasticIP": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.NAT1EIP"
-                        ]
-                    },
-                    "NAT2ElasticIP": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.NAT2EIP"
-                        ]
-                    },
-                    "PrivateSubnet1ID": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.PrivateSubnet1AID"
-                        ]
-                    },
-                    "PrivateSubnet2ID": {
-                        "Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.PrivateSubnet2AID"
-                        ]
                     },
                     "PublicSubnet1ID": {
                         "Fn::GetAtt": [
@@ -769,12 +264,6 @@
                     "QuboleApiToken": {
                         "Ref": "QuboleApiToken"
                     },
-                    "QuboleBastionIngressAccessCIDR": {
-                        "Ref": "QuboleBastionIngressAccessCIDR"
-                    },
-                    "QuboleBastionInstanceType": {
-                        "Ref": "QuboleBastionInstanceType"
-                    },
                     "QuboleExternalId": {
                         "Ref": "QuboleExternalId"
                     },
@@ -793,36 +282,6 @@
                     "RDSUsername": {
                         "Ref": "RDSUsername"
                     },
-                    "RedshiftDatabaseName": {
-                        "Ref": "RedshiftDatabaseName"
-                    },
-                    "RedshiftDatabasePort": {
-                        "Ref": "RedshiftDatabasePort"
-                    },
-                    "RedshiftNodeType": {
-                        "Ref": "RedshiftNodeType"
-                    },
-                    "RedshiftNumberOfNodes": {
-                        "Ref": "RedshiftNumberOfNodes"
-                    },
-                    "RedshiftPassword": {
-                        "Ref": "RedshiftPassword"
-                    },
-                    "RedshiftUsername": {
-                        "Ref": "RedshiftUsername"
-                    },
-                    "RemoteAccessCIDR": {
-                        "Ref": "RemoteAccessCIDR"
-                    },
-                    "SparkMasterInstanceType": {
-                        "Ref": "SparkMasterInstanceType"
-                    },
-                    "SparkMaxNodesCount": {
-                        "Ref": "SparkMaxNodesCount"
-                    },
-                    "SparkSlaveInstanceType": {
-                        "Ref": "SparkSlaveInstanceType"
-                    },
                     "VPCCIDR": {
                         "Fn::GetAtt": [
                             "VPCStack",
@@ -835,9 +294,6 @@
                             "Outputs.VPCID"
                         ]
                     },
-                    "WizardInstanceType": {
-                        "Ref": "WizardInstanceType"
-                    },
                     "WizardPassword": {
                         "Ref": "WizardPassword"
                     },
@@ -846,7 +302,7 @@
                     }
                 },
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/qubole-data-lake.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/qubole.template"
                 }
             },
             "Type": "AWS::CloudFormation::Stack"
@@ -862,9 +318,6 @@
                             }
                         ]
                     },
-                    "KeyPairName": {
-                        "Ref": "KeyPairName"
-                    },
                     "NumberOfAZs": {
                         "Fn::FindInMap": [
                             "VPCDefinitions",
@@ -872,24 +325,6 @@
                                 "Ref": "VPCDefinition"
                             },
                             "NumberOfAZs"
-                        ]
-                    },
-                    "PrivateSubnet1ACIDR": {
-                        "Fn::FindInMap": [
-                            "VPCDefinitions",
-                            {
-                                "Ref": "VPCDefinition"
-                            },
-                            "PrivateSubnet1CIDR"
-                        ]
-                    },
-                    "PrivateSubnet2ACIDR": {
-                        "Fn::FindInMap": [
-                            "VPCDefinitions",
-                            {
-                                "Ref": "VPCDefinition"
-                            },
-                            "PrivateSubnet2CIDR"
                         ]
                     },
                     "PublicSubnet1CIDR": {
@@ -921,7 +356,7 @@
                     }
                 },
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-aws-vpc/templates/aws-vpc.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/aws-vpc.template"
                 }
             },
             "Type": "AWS::CloudFormation::Stack"
@@ -963,34 +398,6 @@
                 "Fn::GetAtt": [
                     "QuboleDataLakeStack",
                     "Outputs.RDSEndpoint"
-                ]
-            }
-        },
-        "RedshiftJdbcUrl": {
-            "Description": "Redshift JDBC url",
-            "Condition": "CreateRedshift",
-            "Value": {
-                "Fn::GetAtt": [
-                    "QuboleDataLakeStack",
-                    "Outputs.RedshiftJdbcUrl"
-                ]
-            }
-        },
-        "ElasticsearchEndpoint": {
-            "Description": "Elasticsearch endpoint",
-            "Value": {
-                "Fn::GetAtt": [
-                    "QuboleDataLakeStack",
-                    "Outputs.ElasticsearchEndpoint"
-                ]
-            }
-        },
-        "KinesisDataStreamName": {
-            "Description": "KinesisDataStreamName",
-            "Value": {
-                "Fn::GetAtt": [
-                    "QuboleDataLakeStack",
-                    "Outputs.KinesisDataStreamName"
                 ]
             }
         }
