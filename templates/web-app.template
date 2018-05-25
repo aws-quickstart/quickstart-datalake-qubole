@@ -128,49 +128,49 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AMZNLINUXHVM": "amzn-ami-hvm-2017.03.1.20170623-x86_64-gp2"
+                "AMZNLINUXHVM": "amzn-ami-hvm-2018.03.0.20180508-x86_64-gp2"
             },
             "ap-northeast-1": {
-                "AMZNLINUXHVM": "ami-3bd3c45c"
+                "AMZNLINUXHVM": "ami-92df37ed"
             },
             "ap-northeast-2": {
-                "AMZNLINUXHVM": "ami-e21cc38c"
+                "AMZNLINUXHVM": "ami-c10fa6af"
             },
             "ap-south-1": {
-                "AMZNLINUXHVM": "ami-47205e28"
+                "AMZNLINUXHVM": "ami-76d6f519"
             },
             "ap-southeast-1": {
-                "AMZNLINUXHVM": "ami-77af2014"
+                "AMZNLINUXHVM": "ami-de90a5a2"
             },
             "ap-southeast-2": {
-                "AMZNLINUXHVM": "ami-10918173"
+                "AMZNLINUXHVM": "ami-423bec20"
             },
             "ca-central-1": {
-                "AMZNLINUXHVM": "ami-a7aa15c3"
+                "AMZNLINUXHVM": "ami-338a0a57"
             },
             "eu-central-1": {
-                "AMZNLINUXHVM": "ami-82be18ed"
+                "AMZNLINUXHVM": "ami-9a91b371"
             },
             "eu-west-1": {
-                "AMZNLINUXHVM": "ami-d7b9a2b1"
+                "AMZNLINUXHVM": "ami-ca0135b3"
             },
             "eu-west-2": {
-                "AMZNLINUXHVM": "ami-ed100689"
+                "AMZNLINUXHVM": "ami-a36f8dc4"
             },
             "sa-east-1": {
-                "AMZNLINUXHVM": "ami-87dab1eb"
+                "AMZNLINUXHVM": "ami-3885d854"
             },
             "us-east-1": {
-                "AMZNLINUXHVM": "ami-a4c7edb2"
+                "AMZNLINUXHVM": "ami-14c5486b"
             },
             "us-east-2": {
-                "AMZNLINUXHVM": "ami-8a7859ef"
+                "AMZNLINUXHVM": "ami-922914f7"
             },
             "us-west-1": {
-                "AMZNLINUXHVM": "ami-327f5352"
+                "AMZNLINUXHVM": "ami-25110f45"
             },
             "us-west-2": {
-                "AMZNLINUXHVM": "ami-6df1e514"
+                "AMZNLINUXHVM": "ami-e251209a"
             }
         }
     },
@@ -371,12 +371,14 @@
                     {
                         "AssociatePublicIpAddress": true,
                         "DeviceIndex": "0",
-                        "SubnetId": { "Ref" : "PublicSubnet1ID" },
+                        "SubnetId": {
+                            "Ref": "PublicSubnet1ID"
+                        },
                         "GroupSet": [
                             {
                                 "Fn::GetAtt": [
-                                "InstanceSecurityGroup",
-                                "GroupId"
+                                    "InstanceSecurityGroup",
+                                    "GroupId"
                                 ]
                             }
                         ]
@@ -411,7 +413,8 @@
             "Value": {
                 "Fn::Join": [
                     "//",
-                    ["http:",
+                    [
+                        "http:",
                         {
                             "Fn::GetAtt": [
                                 "WebServerEC2Instance",
