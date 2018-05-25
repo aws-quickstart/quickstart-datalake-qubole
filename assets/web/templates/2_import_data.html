@@ -39,13 +39,7 @@
                             <li><strong>Port</strong>: {{ config['rds_port'] }}</li>
                             <li><strong>Username</strong>: {{ config['rds_username'] }}</li>
                             <li><strong>Password</strong>: [Password for your database]</li>
-                            <li>Select <strong>Use Bastion Node</strong></li>
-                            <ul>
-                                <li><strong>IP address</strong>: {{ config['bastion_node_public_dns'] }}</li>
-                                <li><strong>Port</strong>: 22</li>
-                                <li><strong>Username</strong>: ec2-user</li>
-                                <li><strong>Private key</strong>: Leave blank</li>
-                            </ul>
+			    <li><strong>Skip Validation</strong>:[Check this field]</li>
                         </ul>
                     </li>
                     <li>Click <strong>Save</strong></li>

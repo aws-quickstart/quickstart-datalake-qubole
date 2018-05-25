@@ -2,6 +2,8 @@ import os
 
 import itertools
 from qds_sdk.cluster import ClusterInfoV13, Cluster
+from qds_sdk.clusterv2 import ClusterCmdLine, ClusterV2, ClusterInfoV2
+from qds_sdk.engine import Engine
 from qds_sdk.commands import DbImportCommand, HiveCommand
 from qds_sdk.dbtaps import DbTap
 from qds_sdk.qubole import Qubole
@@ -36,7 +38,6 @@ def _create_base_cluster_info(label, config):
         aws_availability_zone='Any',
         vpc_id=config['cluster_vpc_id'],
         subnet_id=config['cluster_subnet_id'],
-        bastion_node_public_dns=config['bastion_node_public_dns'],
         role_instance_profile=None
     )
     cluster_info.set_spot_instance_settings(
@@ -51,47 +52,41 @@ def _create_base_cluster_info(label, config):
 
 
 def _create_hadoop_cluster_info(config):
-    cluster_info = _create_base_cluster_info(config['hadoop_cluster_name'], config)
-    cluster_info.set_hadoop_settings(
-        custom_ec2_tags='{"cluster_type": "hadoop2"}',
-        use_hadoop2=True,
-        use_spark=False
-    )
-    cluster_info.set_node_configuration(
-        master_instance_type=config['hadoop_master_instance_type'],
-        slave_instance_type=config['hadoop_slave_instance_type'],
-        initial_nodes=1,
-        max_nodes=config['hadoop_max_nodes_count'],
-        slave_request_type='spot',  # 'ondemand', 'spot', 'spot block'
-        fallback_to_ondemand=None
-    )
-    return cluster_info
+    cluster_info = ClusterInfoV2(config['hadoop_cluster_name'])
+    cluster_info.set_cluster_info(master_instance_type=config['hadoop_master_instance_type'],slave_instance_type=config['hadoop_slave_instance_type'],min_nodes=1,max_nodes=config['hadoop_max_nodes_count'],slave_request_type='spot')
+
+    cloud_config = Qubole.get_cloud(cloud_name='aws')
+    cloud_config.set_cloud_config(aws_region=config['region_name'],aws_availability_zone='Any',vpc_id=config['cluster_vpc_id'],subnet_id=config['cluster_subnet_id'])
+
+    engine_config = Engine(flavour='hadoop2')
+    engine_config.set_engine_config()
+
+    cluster_request = ClusterCmdLine.get_cluster_request_parameters(cluster_info, cloud_config, engine_config)
+
+    return cluster_request
+
 
 
 def _create_spark_cluster_info(config):
-    cluster_info = _create_base_cluster_info(config['spark_cluster_name'], config)
-    cluster_info.set_hadoop_settings(
-        custom_ec2_tags='{"cluster_type": "spark"}',
-        use_hadoop2=True,
-        use_spark=True,
-    )
-    cluster_info.set_node_configuration(
-        master_instance_type=config['spark_master_instance_type'],
-        slave_instance_type=config['spark_slave_instance_type'],
-        initial_nodes=1,
-        max_nodes=config['spark_max_nodes_count'],
-        slave_request_type='spot',  # 'ondemand', 'spot', 'spot block'
-        fallback_to_ondemand=None
-    )
-    return cluster_info
+    cluster_info = ClusterInfoV2(config['spark_cluster_name'])
+    cluster_info.set_cluster_info(master_instance_type=config['hadoop_master_instance_type'],slave_instance_type=config['hadoop_slave_instance_type'],min_nodes=1,max_nodes=config['hadoop_max_nodes_count'],slave_request_type='spot')
+
+    cloud_config = Qubole.get_cloud(cloud_name='aws')
+    cloud_config.set_cloud_config(aws_region=config['region_name'],aws_availability_zone='Any',vpc_id=config['cluster_vpc_id'],subnet_id=config['cluster_subnet_id'])
+
+    engine_config = Engine(flavour='spark')
+    engine_config.set_engine_config(spark_version='2.1.0')
+
+    cluster_request = ClusterCmdLine.get_cluster_request_parameters(cluster_info, cloud_config, engine_config)
+    return cluster_request
 
 
 def _create_cluster(config, make_cluster_info_fun):
-    cluster_info = make_cluster_info_fun(config)
-    cluster_info_dict = cluster_info.minimal_payload()
-    response = Cluster.create(cluster_info_dict, version='v1.3')
-    return response
+    cluster_request = make_cluster_info_fun(config)
 
+    clusterv2 = ClusterV2()
+    response = clusterv2.create(cluster_request)
+    return response
 
 def create_hadoop_cluster(config):
     return _create_cluster(config, _create_hadoop_cluster_info)
@@ -131,9 +126,11 @@ def import_spark_notebook(config, spark_cluster_id):
     )
 
 
-def import_data_table(data_store_id, source_table_name, database_name):
+def import_data_table(data_store_id, source_table_name, database_name,cluster_label):
     return DbImportCommand.create(
         mode=1,
+	use_customer_cluster=True,
+        customer_cluster_label=cluster_label,
         dbtap_id=data_store_id,
         db_table=source_table_name,
         hive_table='{}.{}'.format(database_name, source_table_name),
