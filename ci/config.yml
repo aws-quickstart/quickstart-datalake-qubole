@@ -8,7 +8,7 @@ global:
   reporting: true
 tests:
   without-demonstration:
-    parameter_input: qubole-without-demonstration.json
+    parameter_input: qubole-with-demonstration.json
     template_file: qubole-data-lake-master.template
     regions:
       - us-west-2
