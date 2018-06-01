@@ -53,7 +53,8 @@
                     },
                     "Parameters": [
                         "QSS3BucketName",
-                        "QSS3KeyPrefix"
+                        "QSS3KeyPrefix",
+                        "KeyPairName"
                     ]
                 }
             ],
@@ -82,6 +83,9 @@
                 "QuboleExternalId": {
                     "default": "Qubole External ID"
                 },
+                "KeyPairName": {
+                    "default": "Key Pair Name"
+                },
                 "RDSDatabaseName": {
                     "default": "RDS Database Name"
                 },
@@ -102,6 +106,9 @@
                 },
                 "VPCID": {
                     "default": "Existing VPC ID"
+                },
+                "RemoteAccessCIDR": {
+                    "default": "Remote Access CIDR"
                 },
                 "WizardPassword": {
                     "default": "Wizard Password"
@@ -143,6 +150,10 @@
             "Default": "quickstart-datalake-qubole/",
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Type": "String"
+        },
+        "KeyPairName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to Webserver instance.",
+            "Type": "AWS::EC2::KeyPair::KeyName"
         },
         "QuboleAWSAccountId": {
             "Description": "Qubole AWS account ID. Navigate to Control Panel in UI at https://api.qubole.com/v2/control-panel and click the Account Settings tab on the left pane. Select IAM Role radio button under Access Mode (Keys/IAM Roles) section and copy Trusted Principal AWS Account ID that is displayed.",
@@ -207,6 +218,12 @@
         "VPCID": {
             "Description": "ID of your existing VPC (e.g., vpc-0343606e).",
             "Type": "AWS::EC2::VPC::Id"
+        },
+        "RemoteAccessCIDR": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
+            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/x",
+            "Description": "CIDR block allowed to access Webserver and SSH into Webserver instance. You can use http://checkip.amazonaws.com/ to check your IP address. CIDR block parameter must be in the form x.x.x.x/x (e.g., 96.127.8.12/32, YOUR_IP/32).",
+            "Type": "String"
         },
         "WizardPassword": {
             "AllowedPattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\\x00-\\x7F]*$",
@@ -330,6 +347,9 @@
                     "QSS3KeyPrefix": {
                         "Ref": "QSS3KeyPrefix"
                     },
+                    "KeyName": {
+                        "Ref": "KeyPairName"
+                    },
                     "QuboleApiToken": {
                         "Ref": "QuboleApiToken"
                     },
@@ -362,6 +382,9 @@
                     "SparkSlaveInstanceType": "m3.2xlarge",
                     "VpcId": {
                         "Ref": "VPCID"
+                    },
+                    "RemoteAccessCIDR": {
+                        "Ref": "RemoteAccessCIDR"
                     },
                     "WizardInstanceType": "t2.micro",
                     "WizardPassword": {
