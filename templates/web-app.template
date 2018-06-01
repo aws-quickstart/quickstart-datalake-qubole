@@ -31,6 +31,11 @@
             "Description": "The name of the instance profile to create.",
             "Type": "String"
         },
+        "KeyName": {
+            "ConstraintDescription": "Can contain only ASCII characters.",
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to webserver instance.",
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        },
         "PublicSubnet1ID": {
             "Description": "ID of the public subnet 1 that you want to provision the elastic load balancer into (e.g., subnet-a0246dcd).",
             "Type": "AWS::EC2::Subnet::Id"
@@ -96,6 +101,12 @@
         "VpcId": {
             "Description": "ID of your existing VPC (e.g., vpc-0343606e).",
             "Type": "AWS::EC2::VPC::Id"
+        },
+        "RemoteAccessCIDR": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
+            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/x",
+            "Description": "CIDR block allowed to access Webserver and SSH into Webserver instance. You can use http://checkip.amazonaws.com/ to check your IP address. CIDR block parameter must be in the form x.x.x.x/x (e.g., 96.127.8.12/32, YOUR_IP/32).",
+            "Type": "String"
         },
         "WizardInstanceType": {
             "AllowedValues": [
@@ -179,6 +190,14 @@
             "Properties": {
                 "GroupDescription": "Enable SSH access from Bastion via port 22, and from ELB via port range 1024-65535",
                 "SecurityGroupIngress": [
+                    {
+                        "CidrIp": {
+                            "Ref": "RemoteAccessCIDR"
+                        },
+                        "FromPort": "22",
+                        "IpProtocol": "tcp",
+                        "ToPort": "22"
+                    },
                     {
                         "CidrIp": "0.0.0.0/0",
                         "FromPort": "80",
@@ -366,6 +385,9 @@
                 },
                 "InstanceType": {
                     "Ref": "WizardInstanceType"
+                },
+                "KeyName": {
+                    "Ref": "KeyName"
                 },
                 "NetworkInterfaces": [
                     {

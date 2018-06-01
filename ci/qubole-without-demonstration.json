@@ -4,20 +4,20 @@
       "ParameterValue": "$[alfred_genaz_2]"
   },
   {
-      "ParameterKey": "KeyPairName",
-      "ParameterValue": "$[alfred_getkeypair]"
+      "ParameterKey": "QuboleApiToken",
+      "ParameterValue": "random-string"
   },
   {
-      "ParameterKey": "EnableRedshift",
-      "ParameterValue": "no"
+      "ParameterKey": "KeyPairName",
+      "ParameterValue": "chandra-test"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
-      "ParameterValue": "89.65.65.154/32"
+      "ParameterValue": "10.10.10.0/32"
   },
   {
-      "ParameterKey": "QuboleApiToken",
-      "ParameterValue": "random-string"
+      "ParameterKey": "QSS3BucketName",
+      "ParameterValue": "$[taskcat_autobucket]"
   },
   {
       "ParameterKey": "QuboleExternalId",
@@ -32,23 +32,11 @@
       "ParameterValue": "no"
   },
   {
-      "ParameterKey": "QuboleBastionIngressAccessCIDR",
-      "ParameterValue": "10.0.0.0/16"
-  },
-  {
-      "ParameterKey": "RemoteAccessCIDR",
-      "ParameterValue": "10.0.0.0/16"
-  },
-  {
       "ParameterKey": "WizardPassword",
       "ParameterValue": "$[alfred_genpass_16]"
   },
   {
       "ParameterKey": "RDSPassword",
-      "ParameterValue": "$[alfred_genpass_16]"
-  },
-  {
-      "ParameterKey": "RedshiftPassword",
       "ParameterValue": "$[alfred_genpass_16]"
   }
 ]

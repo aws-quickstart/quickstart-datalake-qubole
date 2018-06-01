@@ -3,7 +3,6 @@ global:
   owner: quickstart@amazon.com
   qsname: quickstart-datalake-qubole
   regions:
-    - us-east-1
     - us-west-2
   reporting: true
 tests:
