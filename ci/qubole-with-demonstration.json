@@ -4,16 +4,8 @@
       "ParameterValue": "$[alfred_genaz_2]"
   },
   {
-      "ParameterKey": "KeyPairName",
-      "ParameterValue": "$[alfred_getkeypair]"
-  },
-  {
-      "ParameterKey": "EnableRedshift",
-      "ParameterValue": "no"
-  },
-  {
-      "ParameterKey": "RemoteAccessCIDR",
-      "ParameterValue": "89.65.65.154/32"
+      "ParameterKey": "CreateDemonstration",
+      "ParameterValue": "yes"
   },
   {
       "ParameterKey": "QuboleApiToken",
@@ -28,18 +20,6 @@
       "ParameterValue": "805246085872"
   },
   {
-      "ParameterKey": "CreateDemonstration",
-      "ParameterValue": "yes"
-  },
-  {
-      "ParameterKey": "QuboleBastionIngressAccessCIDR",
-      "ParameterValue": "10.0.0.0/16"
-  },
-  {
-      "ParameterKey": "RemoteAccessCIDR",
-      "ParameterValue": "10.0.0.0/16"
-  },
-  {
       "ParameterKey": "WizardPassword",
       "ParameterValue": "$[alfred_genpass_16]"
   },
@@ -48,7 +28,7 @@
       "ParameterValue": "$[alfred_genpass_16]"
   },
   {
-      "ParameterKey": "RedshiftPassword",
-      "ParameterValue": "$[alfred_genpass_16]"
+      "ParameterKey": "QSS3BucketName",
+      "ParameterValue": "$[taskcat_autobucket]"
   }
 ]

@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Data Lake Qubole is a QuickStart that provides a Data Lake architecture, Redshift cluster, Elasticsearch domain, Qubole walk-through web application running on AWS EC2 instance, in the same VPC through Cloudformation templates that provision and configure the required resources, including related QuickStarts. This template provisions all of the resources that are specific to the Quick Start. **WARNING** You will be billed for the AWS resources used if you create a stack from this template.(qs-1nncltg6d)",
+    "Description": "Data Lake Qubole QuickStart provides a Data Lake architecture, Redshift cluster, Elasticsearch domain, and Qubole walk-through web application running on AWS EC2 instance. This template provisions all of the resources that are specific to the Quick Start. **WARNING** You will be billed for the AWS resources used if you create a stack from this template.(qs-1nncltg6d)",
     "Metadata": {
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
@@ -39,22 +39,22 @@
                 },
                 {
                     "Label": {
-                        "default": "AWS Quick Start Configuration"
-                    },
-                    "Parameters": [
-                        "QSS3BucketName",
-                        "QSS3KeyPrefix",
-                        "KeyPairName"
-                    ]
-                },
-                {
-                    "Label": {
                         "default": "Demonstration Configuration"
                     },
                     "Parameters": [
                         "CreateDemonstration",
                         "WizardUsername",
                         "WizardPassword"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "AWS Quick Start Configuration"
+                    },
+                    "Parameters": [
+                        "QSS3BucketName",
+                        "QSS3KeyPrefix",
+                        "KeyPairName"
                     ]
                 }
             ],
@@ -125,7 +125,7 @@
                 "yes",
                 "no"
             ],
-            "Default": "yes",
+            "Default": "no",
             "Description": "Create EC2 instance with Qubole walk-through guide and load sample data into RDS",
             "Type": "String"
         },
@@ -140,14 +140,14 @@
         "QSS3BucketName": {
             "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
             "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "aws-hosted-bucket-qubole",
+            "Default": "aws-quickstart",
             "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
             "Type": "String"
         },
         "QSS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-zA-Z-/]*$",
             "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Default": "qubole-quickstart/",
+            "Default": "quickstart-datalake-qubole/",
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Type": "String"
         },
