@@ -13,11 +13,11 @@
   },
   {
       "ParameterKey": "QuboleExternalId",
-      "ParameterValue": "G4ZDGMTIMNTWIYLJ"
+      "ParameterValue": "ExternalId"
   },
   {
       "ParameterKey": "QuboleAWSAccountId",
-      "ParameterValue": "805246085872"
+      "ParameterValue": "805246085000"
   },
   {
       "ParameterKey": "WizardPassword",
@@ -28,7 +28,11 @@
       "ParameterValue": "$[alfred_genpass_16]"
   },
   {
-      "ParameterKey": "QSS3BucketName",
-      "ParameterValue": "$[taskcat_autobucket]"
+      "ParameterKey": "KeyPairName",
+      "ParameterValue": "$[alfred_getkeypair]"
+  },
+  {
+      "ParameterKey": "RemoteAccessCIDR",
+      "ParameterValue": "10.0.0.0/16"
   }
 ]

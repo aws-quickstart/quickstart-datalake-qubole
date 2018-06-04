@@ -9,23 +9,19 @@
   },
   {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "chandra-test"
+      "ParameterValue": "$[alfred_getkeypair]"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
       "ParameterValue": "10.10.10.0/32"
   },
   {
-      "ParameterKey": "QSS3BucketName",
-      "ParameterValue": "$[taskcat_autobucket]"
-  },
-  {
       "ParameterKey": "QuboleExternalId",
-      "ParameterValue": "G4ZDGMTIMNTWIYLJ"
+      "ParameterValue": "ExternalId"
   },
   {
       "ParameterKey": "QuboleAWSAccountId",
-      "ParameterValue": "805246085872"
+      "ParameterValue": "805246080000"
   },
   {
       "ParameterKey": "CreateDemonstration",

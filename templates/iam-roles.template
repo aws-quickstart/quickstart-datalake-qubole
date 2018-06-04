@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Creates IAM roles.",
+  "Description": "Creates IAM roles used for Qubole Datalake.",
   "Resources": {
     "QuboleInstanceProfile": {
       "Properties": {

@@ -42,7 +42,9 @@
                     "Parameters": [
                         "CreateDemonstration",
                         "WizardUsername",
-                        "WizardPassword"
+                        "WizardPassword",
+                        "KeyPairName",
+                        "RemoteAccessCIDR"
                     ]
                 },
                 {
@@ -51,8 +53,7 @@
                     },
                     "Parameters": [
                         "QSS3BucketName",
-                        "QSS3KeyPrefix",
-                        "KeyPairName"
+                        "QSS3KeyPrefix"
                     ]
                 }
             ],
