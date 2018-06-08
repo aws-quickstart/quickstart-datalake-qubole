@@ -123,10 +123,11 @@
     "Parameters": {
         "CreateDemonstration": {
             "AllowedValues": [
-                "yes",
-                "no"
+                "Select option",
+                "no",
+                "yes"
             ],
-            "Default": "no",
+            "Default": "Select option",
             "Description": "Create EC2 instance with Qubole walk-through guide and load sample data into RDS",
             "Type": "String"
         },
@@ -243,6 +244,19 @@
             "MaxLength": "64",
             "MinLength": "1",
             "Type": "String"
+        }
+    },
+    "Rules": {
+        "DeploymentType": {
+            "Assertions": [
+              {
+                "Assert": { "Fn::Not" : [{
+                    "Fn::Equals" : [ {"Ref" : "CreateDemonstration"}, "Select option" ]
+                }]
+              },
+                "AssertDescription": "CreateDemonstration parameter value must be 'yes' or 'no' "
+              }
+            ]
         }
     },
     "Conditions": {
