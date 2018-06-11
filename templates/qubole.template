@@ -6,16 +6,6 @@
             "ParameterGroups": [
                 {
                     "Label": {
-                        "default": "Qubole Configuration"
-                    },
-                    "Parameters": [
-                        "QuboleApiToken",
-                        "QuboleAWSAccountId",
-                        "QuboleExternalId"
-                    ]
-                },
-                {
-                    "Label": {
                         "default": "Network Configuration"
                     },
                     "Parameters": [
@@ -35,6 +25,16 @@
                         "RDSDatabaseName",
                         "RDSInstanceType",
                         "RDSPort"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "Qubole Configuration"
+                    },
+                    "Parameters": [
+                        "QuboleApiToken",
+                        "QuboleAWSAccountId",
+                        "QuboleExternalId"
                     ]
                 },
                 {
@@ -148,9 +148,9 @@
         },
         "QSS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-zA-Z-/]*$",
-            "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
             "Default": "quickstart-datalake-qubole/",
-            "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
             "Type": "String"
         },
         "KeyPairName": {
@@ -158,7 +158,7 @@
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
         "QuboleAWSAccountId": {
-            "Description": "Qubole AWS account ID. Navigate to Control Panel in UI at https://api.qubole.com/v2/control-panel and click the Account Settings tab on the left pane. Select IAM Role radio button under Access Mode (Keys/IAM Roles) section and copy Trusted Principal AWS Account ID that is displayed.",
+            "Description": "Qubole AWS account ID. Navigate to https://api.qubole.com/v2/control-panel. In the left pane, choose Account Settings. Under Access Mode (Keys/IAM Roles), choose IAM Role, and copy the Trusted Principal AWS Account ID that is displayed.",
             "NoEcho": "true",
             "Type": "String"
         },
@@ -168,7 +168,7 @@
             "Type": "String"
         },
         "QuboleExternalId": {
-            "Description": "Qubole account External ID. Navigate to Control Panel in UI at https://api.qubole.com/v2/control-panel and click the Account Settings tab on the left pane. Select IAM Role radio button under Access Mode (Keys/IAM Roles) section and copy External ID that is displayed.",
+            "Description": "Qubole account External ID. Navigate to https://api.qubole.com/v2/control-panel. In the left pane, choose Account Settings. Under Access Mode (Keys/IAM Roles), choose IAM Role, and copy the external ID that is displayed.",
             "NoEcho": "true",
             "Type": "String"
         },
