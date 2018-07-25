@@ -1,7 +1,7 @@
 [
   {
       "ParameterKey": "AvailabilityZones",
-      "ParameterValue": "$[alfred_genaz_2]"
+      "ParameterValue": "$[taskcat_genaz_2]"
   },
   {
       "ParameterKey": "QuboleApiToken",
@@ -9,7 +9,7 @@
   },
   {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "$[alfred_getkeypair]"
+      "ParameterValue": "$[taskcat_getkeypair]"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
@@ -29,10 +29,10 @@
   },
   {
       "ParameterKey": "WizardPassword",
-      "ParameterValue": "$[alfred_genpass_16]"
+      "ParameterValue": "$[taskcat_genpass_16]"
   },
   {
       "ParameterKey": "RDSPassword",
-      "ParameterValue": "$[alfred_genpass_16]"
+      "ParameterValue": "$[taskcat_genpass_16]"
   }
 ]
