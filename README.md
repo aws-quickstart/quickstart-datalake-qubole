@@ -13,7 +13,7 @@ The deployment and configuration tasks are automated by AWS CloudFormation templ
 
 You can also use the AWS CloudFormation templates as a starting point for your own implementation.
 
-![Quick Start architecture for Qubole on AWS](https://d0.awsstatic.com/partner-network/QuickStart/datasheets/qubole-data-service-on-aws-architecture.png)
+![Quick Start architecture for Qubole on AWS](https://d0.awsstatic.com/partner-network/QuickStart/datasheets/qubole-data-service-on-data-lake-foundation-on-aws.png)
 
 For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/vkRg4).
 
