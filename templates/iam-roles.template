@@ -108,7 +108,7 @@ Resources:
 Parameters:
   QuboleAWSAccountId:
     Description: >-
-      Qubole AWS account ID. Navigate to Control Panel in UI at https://api.qubole.com/v2/control-panel
+      Qubole AWS account ID. Navigate to Control Panel in UI at https://us.qubole.com/v2/control-panel
       and click the Account Settings tab on the left pane. Select IAM Role radio button
       under Access Mode (Keys/IAM Roles) section and copy Trusted Principal AWS Account
       ID that is displayed.
@@ -121,7 +121,7 @@ Parameters:
     Type: String
   QuboleExternalId:
     Description: >-
-      Qubole account External ID. Navigate to Control Panel in UI at https://api.qubole.com/v2/control-panel
+      Qubole account External ID. Navigate to Control Panel in UI at https://us.qubole.com/v2/control-panel
       and click the Account Settings tab on the left pane. Select IAM Role radio button
       under Access Mode (Keys/IAM Roles) section and copy External ID that is displayed.
     NoEcho: 'true'
