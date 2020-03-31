@@ -41,6 +41,7 @@ Metadata:
           default: AWS Quick Start Configuration
         Parameters:
           - QSS3BucketName
+          - QSS3BucketRegion
           - QSS3KeyPrefix
     ParameterLabels:
       CreateDemonstration:
@@ -51,6 +52,8 @@ Metadata:
         default: Existing VPC Public Subnet 2 ID
       QSS3BucketName:
         default: Quick Start S3 Bucket Name
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket region
       QSS3KeyPrefix:
         default: Quick Start S3 Key Prefix
       QuboleAWSAccountId:
@@ -106,6 +109,10 @@ Parameters:
     Description: S3 bucket name for the Quick Start assets. Quick Start bucket name
       can include numbers, lowercase letters, uppercase letters, and hyphens (-).
       It cannot start or end with a hyphen (-).
+    Type: String
+  QSS3BucketRegion:
+    Default: 'us-east-1'
+    Description: 'The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.'
     Type: String
   QSS3KeyPrefix:
     AllowedPattern: ^[0-9a-zA-Z-/]*$
@@ -230,6 +237,7 @@ Conditions:
   CreateDemoResources: !Equals
     - !Ref 'CreateDemonstration'
     - 'yes'
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
 Resources:
   IAMRolesStack:
     Properties:
@@ -237,11 +245,19 @@ Resources:
         QuboleAWSAccountId: !Ref 'QuboleAWSAccountId'
         QuboleBucketName: !GetAtt 'QuboleBucketStack.Outputs.QuboleLoggingBucketName'
         QuboleExternalId: !Ref 'QuboleExternalId'
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/iam-roles.template'
+      TemplateURL:
+        !Sub
+          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/iam-roles.template'
+          - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
     Type: AWS::CloudFormation::Stack
   QuboleBucketStack:
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/logging-bucket.template'
+      TemplateURL:
+        !Sub
+          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/logging-bucket.template'
+          - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
     Type: AWS::CloudFormation::Stack
   RDSStack:
     Condition: CreateDemoResources
@@ -256,7 +272,11 @@ Resources:
         RDSUsername: !Ref 'RDSUsername'
         VPCCIDR: !Ref 'VPCCIDR'
         VpcId: !Ref 'VPCID'
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/database.template'
+      TemplateURL:
+        !Sub
+          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/database.template'
+          - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
     Type: AWS::CloudFormation::Stack
   WebAppStack:
     Condition: CreateDemoResources
@@ -269,7 +289,7 @@ Resources:
         HadoopSlaveInstanceType: m3.xlarge
         InstanceProfileName: !GetAtt 'IAMRolesStack.Outputs.InstanceProfileName'
         PublicSubnet1ID: !Ref 'PublicSubnet1ID'
-        QSS3BucketName: !Ref 'QSS3BucketName'
+        QSS3BucketName: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         QSS3KeyPrefix: !Ref 'QSS3KeyPrefix'
         KeyName: !Ref 'KeyPairName'
         QuboleApiToken: !Ref 'QuboleApiToken'
@@ -287,7 +307,11 @@ Resources:
         WizardInstanceType: t2.micro
         WizardPassword: !Ref 'WizardPassword'
         WizardUsername: !Ref 'WizardUsername'
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/web-app.template'
+      TemplateURL:
+        !Sub
+          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/web-app.template'
+          - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
     Type: AWS::CloudFormation::Stack
 Outputs:
   QuboleWizardWebAppURL:

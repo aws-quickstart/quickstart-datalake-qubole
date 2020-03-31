@@ -39,6 +39,7 @@ Metadata:
           default: AWS Quick Start Configuration
         Parameters:
           - QSS3BucketName
+          - QSS3BucketRegion
           - QSS3KeyPrefix
     ParameterLabels:
       AvailabilityZones:
@@ -47,6 +48,8 @@ Metadata:
         default: Create Demonstration
       QSS3BucketName:
         default: Quick Start S3 Bucket Name
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket region
       QSS3KeyPrefix:
         default: Quick Start S3 Key Prefix
       QuboleAWSAccountId:
@@ -95,6 +98,7 @@ Conditions:
   CreateDemoResources: !Equals
     - !Ref 'CreateDemonstration'
     - 'yes'
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
 Parameters:
   AvailabilityZones:
     Description: 'List of Availability Zones to use for the subnets in the VPC. Note:
@@ -118,6 +122,10 @@ Parameters:
     Description: S3 bucket name for the Quick Start assets. Quick Start bucket name
       can include numbers, lowercase letters, uppercase letters, and hyphens (-).
       It cannot start or end with a hyphen (-).
+    Type: String
+  QSS3BucketRegion:
+    Default: 'us-east-1'
+    Description: 'The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.'
     Type: String
   QSS3KeyPrefix:
     AllowedPattern: ^[0-9a-zA-Z-/]*$
@@ -255,7 +263,11 @@ Resources:
         VPCID: !GetAtt 'VPCStack.Outputs.VPCID'
         WizardPassword: !Ref 'WizardPassword'
         WizardUsername: !Ref 'WizardUsername'
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/qubole.template'
+      TemplateURL:
+        !Sub
+          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/qubole.template'
+          - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
     Type: AWS::CloudFormation::Stack
   VPCStack:
     Properties:
@@ -279,7 +291,11 @@ Resources:
           - VPCDefinitions
           - !Ref 'VPCDefinition'
           - VPCCIDR
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/aws-vpc.template'
+      TemplateURL:
+        !Sub
+          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/aws-vpc.template'
+          - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
     Type: AWS::CloudFormation::Stack
 Outputs:
   QuboleWizardWebAppURL:

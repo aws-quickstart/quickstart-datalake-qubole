@@ -167,6 +167,8 @@ Mappings:
       AMZNLINUXHVM: ami-021bb9f371690f97a
     us-west-2:
       AMZNLINUXHVM: ami-079f731edfe27c29c
+Conditions:
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
 Resources:
   InstanceSecurityGroup:
     Properties:
