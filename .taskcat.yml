@@ -1,0 +1,43 @@
+project:
+  name: quickstart-datalake-qubole
+  owner: quickstart-eng@amazon.com
+  package_lambda: false
+  regions:
+  - us-west-1
+  - us-west-2
+  s3_bucket: ''
+tests:
+  without-demonstration:
+    parameters:
+      AvailabilityZones: $[alfred_getaz_2]
+      KeyPairName: $[alfred_getkeypair]
+      QuboleApiToken: random-string
+      QuboleExternalId: GEYTOMRVMRUWE2DF
+      QuboleAWSAccountId: "805246085872"
+      CreateDemonstration: "no"
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
+      RemoteAccessCIDR: 10.10.10.0/32
+      WizardPassword: $[taskcat_genpass_16]
+      RDSPassword: $[taskcat_genpass_16]
+    regions:
+    - us-west-2
+    s3_bucket: ''
+    template: templates/qubole-data-lake-master.template
+  with-demonstration:
+    parameters:
+      AvailabilityZones: $[alfred_getaz_2]
+      KeyPairName: $[alfred_getkeypair]
+      QuboleApiToken: random-string
+      QuboleExternalId: GEYTOMRVMRUWE2DF
+      QuboleAWSAccountId: "805246085872"
+      CreateDemonstration: "yes"
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
+      RemoteAccessCIDR: 10.0.0.0/16
+      WizardPassword: $[taskcat_genpass_16]
+      RDSPassword: $[taskcat_genpass_16]
+    regions:
+    - us-west-2
+    s3_bucket: ''
+    template: templates/qubole-data-lake-master.template
