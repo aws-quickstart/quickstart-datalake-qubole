@@ -34,5 +34,9 @@
   {
       "ParameterKey": "RDSPassword",
       "ParameterValue": "$[taskcat_genpass_16]"
+  },
+  {
+    "ParameterKey": "QSS3BucketRegion",
+    "ParameterValue": "$[taskcat_current_region]"
   }
 ]
