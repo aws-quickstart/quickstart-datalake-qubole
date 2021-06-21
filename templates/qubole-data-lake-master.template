@@ -4,7 +4,7 @@ Description: >-
   Elasticsearch domain, and Qubole walk-through web application running on AWS EC2
   instance. This template provisions all of the resources that are specific to the
   Quick Start. **WARNING** You will be billed for the AWS resources used if you create
-  a stack from this template.(qs-1nncltg63)
+  a stack from this template. (qs-1nncltg63)
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
